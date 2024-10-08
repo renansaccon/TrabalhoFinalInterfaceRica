@@ -43,6 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.utfpr.trabalhofinal.R
 import br.edu.utfpr.trabalhofinal.data.Conta
 import br.edu.utfpr.trabalhofinal.data.TipoContaEnum
+import br.edu.utfpr.trabalhofinal.ui.conta.form.FormField
 import br.edu.utfpr.trabalhofinal.ui.theme.TrabalhoFinalTheme
 import br.edu.utfpr.trabalhofinal.ui.utils.composables.Carregando
 import br.edu.utfpr.trabalhofinal.ui.utils.composables.ErroAoCarregar
@@ -88,8 +89,11 @@ fun ListaContasScreen(
                     ListaVazia(modifier = modifierWithPadding.fillMaxSize())
                 } else {
                     Card(onClick = {}) { //adicionado para verificação do tamanho do item
+
+                        
+
                         List(
-                            modifier = Modifier,
+                            modifier = modifierWithPadding,
                             contas = viewModel.state.contas,
                             onContaPressed = onContaPressed,
                         )
@@ -176,7 +180,6 @@ private fun List(
 ) {
     LazyColumn(modifier = modifier) {
         items(contas) { conta ->
-            if (conta.tipo==TipoContaEnum.DESPESA){
                 ListItem(
                     modifier = modifier.clickable { onContaPressed(conta) },
                     leadingContent = { PaidIconButton(
@@ -185,26 +188,24 @@ private fun List(
                         onPressed = {},
                         )
                     },
-                    headlineContent = { Text(conta.descricao, color = Color(0xFFCF5355))},
-                    supportingContent = { Text(conta.data.formatar(), color = Color(0xFFCF5355))},
-                    trailingContent = { Text(conta.valor.formatar(), color = Color(0xFFCF5355))},
-                )} else{
-                ListItem(
-                    modifier = modifier.clickable { onContaPressed(conta) },
-                    leadingContent = { PaidIconButton(
-                        isPaid = conta.paga,
-                        isCost = conta.tipo,
-                        onPressed = {},
-                    )
-                    },
-                    headlineContent = { Text(conta.descricao, color = Color(0xFF00984E)) },
-                    supportingContent = { Text(conta.data.formatar(), color = Color(0xFF00984E))},
-                    trailingContent = { Text(conta.valor.formatar(), color = Color(0xFF00984E))},
+                    headlineContent = { Text(conta.descricao, color = ListItemColor(isCost = conta.tipo))},
+                    supportingContent = { Text(conta.data.formatar(), color = ListItemColor(isCost = conta.tipo))},
+                    trailingContent = { Text(conta.valor.formatar(), color = ListItemColor(isCost = conta.tipo))},
                 )
             }
         }
     }
-}
+
+@Composable
+fun ListItemColor(
+    isCost: TipoContaEnum
+): Color = if (isCost==TipoContaEnum.DESPESA){
+        Color(0xFFCF5355)
+    } else{
+        Color(0xFF00984E)
+    }
+
+
 
 @Preview(showBackground = true)
 @Composable
