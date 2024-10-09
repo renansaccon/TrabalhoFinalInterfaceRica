@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsStartWidth
@@ -55,6 +56,7 @@ import br.edu.utfpr.trabalhofinal.utils.formatar
 import java.math.BigDecimal
 import java.time.LocalDate
 
+
 @Composable
 fun ListaContasScreen(
     modifier: Modifier = Modifier,
@@ -84,16 +86,15 @@ fun ListaContasScreen(
                     }
                 }
             ) { paddingValues ->
-                val modifierWithPadding = Modifier.padding(paddingValues)
+                val modifierWithPadding = modifier.padding(paddingValues)
+                System.out.println(paddingValues)
                 if (viewModel.state.contas.isEmpty()) {
                     ListaVazia(modifier = modifierWithPadding.fillMaxSize())
                 } else {
-                    Card(onClick = {}) { //adicionado para verificação do tamanho do item
-
-                        
-
+                    Card(onClick = {},
+                        modifier = modifier.padding(0.dp,88.dp)) { //adicionado para verificação do tamanho do item
                         List(
-                            modifier = modifierWithPadding,
+                            modifier = modifier,
                             contas = viewModel.state.contas,
                             onContaPressed = onContaPressed,
                         )

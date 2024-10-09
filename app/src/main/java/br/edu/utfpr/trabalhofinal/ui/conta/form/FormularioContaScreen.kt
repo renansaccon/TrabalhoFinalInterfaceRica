@@ -369,6 +369,7 @@ private fun FormContent( //Monta a visualização e  deve ser utilizado os dados
                 campoFormulario = valor.valor,
                 errorCode = valor.codigoMensagemErro,
                 onValorAlterado = onValorAlterado,
+                keyboardType = KeyboardType.Decimal,
                 enabled = !processando,
                 readOnly = false
             )
