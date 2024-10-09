@@ -1,14 +1,13 @@
 package br.edu.utfpr.trabalhofinal.ui.conta.form
 import br.edu.utfpr.trabalhofinal.data.Conta
 import br.edu.utfpr.trabalhofinal.data.TipoContaEnum
-import java.math.BigDecimal
 import java.time.LocalDate
 
 data class FormField<T>(
     val valor: T,
     val codigoMensagemErro: Int = 0
 ) {
-    val contemErro get(): Boolean = codigoMensagemErro > 0
+    private val contemErro get(): Boolean = codigoMensagemErro > 0
     val valido get(): Boolean = !contemErro
 }
 data class FormularioContaState(

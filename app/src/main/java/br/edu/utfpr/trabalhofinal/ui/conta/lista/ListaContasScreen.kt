@@ -2,22 +2,17 @@ package br.edu.utfpr.trabalhofinal.ui.conta.lista
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsStartWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Refresh
@@ -44,7 +39,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.utfpr.trabalhofinal.R
 import br.edu.utfpr.trabalhofinal.data.Conta
 import br.edu.utfpr.trabalhofinal.data.TipoContaEnum
-import br.edu.utfpr.trabalhofinal.ui.conta.form.FormField
 import br.edu.utfpr.trabalhofinal.ui.theme.TrabalhoFinalTheme
 import br.edu.utfpr.trabalhofinal.ui.utils.composables.Carregando
 import br.edu.utfpr.trabalhofinal.ui.utils.composables.ErroAoCarregar
@@ -87,7 +81,6 @@ fun ListaContasScreen(
                 }
             ) { paddingValues ->
                 val modifierWithPadding = modifier.padding(paddingValues)
-                System.out.println(paddingValues)
                 if (viewModel.state.contas.isEmpty()) {
                     ListaVazia(modifier = modifierWithPadding.fillMaxSize())
                 } else {
@@ -132,7 +125,7 @@ private fun AppBar(
     )
 }
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun AppBarPreview() {
     TrabalhoFinalTheme {
@@ -164,7 +157,7 @@ private fun ListaVazia(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun ListaVaziaPreview() {
     TrabalhoFinalTheme {
@@ -189,16 +182,16 @@ private fun List(
                         onPressed = {},
                         )
                     },
-                    headlineContent = { Text(conta.descricao, color = ListItemColor(isCost = conta.tipo))},
-                    supportingContent = { Text(conta.data.formatar(), color = ListItemColor(isCost = conta.tipo))},
-                    trailingContent = { Text(conta.valor.formatar(), color = ListItemColor(isCost = conta.tipo))},
+                    headlineContent = { Text(conta.descricao, color = listItemColor(isCost = conta.tipo))},
+                    supportingContent = { Text(conta.data.formatar(), color = listItemColor(isCost = conta.tipo))},
+                    trailingContent = { Text(conta.valor.formatar(), color = listItemColor(isCost = conta.tipo))},
                 )
             }
         }
     }
 
 @Composable
-fun ListItemColor(
+fun listItemColor(
     isCost: TipoContaEnum
 ): Color = if (isCost==TipoContaEnum.DESPESA){
         Color(0xFFCF5355)
